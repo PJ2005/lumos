@@ -1,10 +1,17 @@
 /* Window.css */
-::-webkit-scrollbar{
+::-webkit-scrollbar {
     width: 8px;
     border-radius: 8px;
 }
 
-::-webkit-scrollbar-thumb{
+::-webkit-scrollbar-thumb {
     border-radius: 8px;
-    background-color: rgb(128 128 128);
+    background-color: rgb(128, 128, 128);
+}
+
+/* Remove the scrollbar for phone screens */
+@media (max-width: 768px) {
+    ::-webkit-scrollbar {
+        display: none;
+    }
 }

@@ -8,10 +8,10 @@ import { auth } from '../firebaseConfig';
 
 function Header() {
     return (
-        <div className="grid grid-cols-6 text-center items-center bg-neutral-300 dark:bg-neutral-700 py-2 mb-2 rounded-lg transition-colors duration-300">
+        <div className="grid grid-cols-7 text-center items-center bg-neutral-300 dark:bg-neutral-700 py-2 mb-2 rounded-lg transition-colors duration-300">
             <h1 className="col-span-1 text-gray-800 dark:text-gray-200 transition-colors duration-300">S.No</h1>
             <h1 className="col-span-2 text-gray-800 dark:text-gray-200 transition-colors duration-300">Subject</h1>
-            <h1 className="col-span-1 text-gray-800 dark:text-gray-200 transition-colors duration-300">Credits</h1>
+            <h1 className="col-span-2 text-gray-800 dark:text-gray-200 transition-colors duration-300">Credits</h1>
             <h1 className="col-span-2 text-gray-800 dark:text-gray-200 transition-colors duration-300">Grade</h1>
         </div>
     );
@@ -43,11 +43,11 @@ function GradeDrop({ onGradeChange, reset, resetGrade }) {
     }, [reset, resetGrade]);
   
     return (
-      <div className="dropdown-menu flex flex-col justify-center items-center md:flex-row w-full md:w-auto">
+      <div className="dropdown-menu flex flex-col justify-center items-center md:flex-row w-full md:w-auto max-md:w-auto">
         <select
           onChange={handleGradeChange}
           value={grade}
-          className="dropdown-toggle rounded-md focus:outline-neutral-500 appearance-none cursor-pointer hover:bg-neutral-300 focus:bg-neutral-300 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:focus:outline-neutral-600 py-1.5 px-4 w-11/12 md:w-auto text-center hover:shadow-lg hover:scale-[1.01] hover:transition-all duration-300 ease-in-out text-gray-800 dark:text-gray-200 bg-white dark:bg-slate-800 transition-colors duration-300"
+          className="dropdown-toggle rounded-md focus:outline-neutral-500 appearance-none cursor-pointer hover:bg-neutral-300 focus:bg-neutral-300 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:focus:outline-neutral-600 py-1.5 px-4 w-11/12 md:w-auto text-center hover:shadow-lg hover:scale-[1.01] hover:transition-all ease-in-out text-gray-800 dark:text-gray-200 bg-white dark:bg-slate-800 transition-colors duration-300"
         >
           <option value="" disabled hidden>Grades</option>
           <option value="10">O</option>
@@ -92,7 +92,7 @@ function CreditDrop({ onCreditChange, reset, resetCredit }) {
       <select
         onChange={handleCreditChange}
         value={credit}
-        className="rounded-md focus:outline-neutral-500 appearance-none cursor-pointer hover:bg-neutral-300 focus:bg-neutral-300 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:focus:outline-neutral-600 py-1.5 px-4 w-full md:w-auto min-w-[120px] text-center hover:shadow-lg hover:scale-[1.01] hover:transition-all duration-300 ease-in-out text-gray-800 dark:text-gray-200 bg-white dark:bg-slate-800 transition-colors duration-300"
+        className="rounded-md focus:outline-neutral-500 appearance-none cursor-pointer hover:bg-neutral-300 focus:bg-neutral-300 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:focus:outline-neutral-600 py-1.5 px-4 w-11/12 md:w-auto min-w-[95px] text-center hover:shadow-lg hover:scale-[1.01] hover:transition-all ease-in-out text-gray-800 dark:text-gray-200 bg-white dark:bg-slate-800 transition-colors duration-300"
       >
         <option value="" disabled hidden>Credits</option>
         <option value="1">1</option>
@@ -107,41 +107,42 @@ function CreditDrop({ onCreditChange, reset, resetCredit }) {
 
 function SubjectInput({ onSubjectChange, reset, resetSubject }) {
     const [subject, setSubject] = useState('');
-  
+
     const handleSubjectChange = (e) => {
-      const enteredSubject = e.target.value;
-      setSubject(enteredSubject);
-      onSubjectChange(enteredSubject);
+        const enteredSubject = e.target.value;
+        setSubject(enteredSubject);
+        onSubjectChange(enteredSubject);
     };
-  
+
     const resetSubjectValue = () => {
         setTimeout(() => {
             setSubject('');
         }, 5000);
     };
-  
+
     useEffect(() => {
-      if (reset) {
-        if (typeof resetSubject === 'function') {
-          resetSubject();
-        } else {
-          resetSubjectValue();
+        if (reset) {
+            if (typeof resetSubject === 'function') {
+                resetSubject();
+            } else {
+                resetSubjectValue();
+            }
         }
-      }
     }, [reset, resetSubject]);
-  
+
     return (
-      <div>
-        <input
-          type="text"
-          className="rounded-md py-1.5 px-4 w-full outline-none hover:bg-neutral-200 hover:cursor-pointer focus:cursor-text focus:bg-neutral-200 focus:outline-neutral-400 dark:hover:bg-neutral-500 dark:focus:bg-neutral-500 dark:focus:outline-neutral-600 md:w-auto text-center hover:shadow-lg hover:scale-[1.01] hover:transition-all duration-300 ease-in-out text-gray-800 dark:text-gray-200 bg-white dark:bg-slate-800 transition-colors duration-300"
-          placeholder="Subject"
-          value={subject}
-          onChange={handleSubjectChange}
-        />
-      </div>
+        <div>
+            <input
+                type="text"
+                className="rounded-md py-1.5 px-4 w-full md:w-auto outline-none hover:bg-neutral-200 hover:cursor-pointer focus:cursor-text focus:bg-neutral-200 focus:outline-neutral-400 dark:hover:bg-neutral-500 dark:focus:bg-neutral-500 dark:focus:outline-neutral-600 text-center hover:shadow-lg hover:scale-[1.01] hover:transition-all ease-in-out text-gray-800 dark:text-gray-200 bg-white dark:bg-slate-800 transition-colors duration-300 placeholder:text-sm md:placeholder:text-base"
+                placeholder="Subject"
+                value={subject}
+                onChange={handleSubjectChange}
+            />
+        </div>
     );
 }
+
 
 function CenteredHr() {
     return (
@@ -192,12 +193,12 @@ function Format({ count, rowIndex, resetGrade, resetCredit, resetSubject, resetI
     }, [data, rowIndex]);
 
     return (
-        <div className="grid grid-cols-6 text-center mt-2">
+        <div className="grid grid-cols-7 text-center mt-2">
             <div className="col-span-1">{count}</div>
             <div className="col-span-2">
                 <SubjectInput onSubjectChange={handleSubjectChange} reset={resetInputs} resetSubject={resetSubject} />
             </div>
-            <div className="col-span-1">
+            <div className="col-span-2">
                 <CreditDrop onCreditChange={handleCreditChange} reset={resetInputs} resetCredit={resetCredit} />
             </div>
             <div className="col-span-2">
@@ -241,7 +242,7 @@ function YearSem({ onYearChange, onSemesterChange, reset }) {
     <div className="flex justify-center items-center space-x-2">
       <div className="w-1/2">
         <select
-          className="rounded-md appearance-none cursor-pointer focus:outline-zinc-500 hover:bg-zinc-300 focus:bg-zinc-300 dark:focus:outline-zinc-400 dark:hover:bg-zinc-700 dark:focus:bg-zinc-700 py-1.5 px-4 w-full text-center hover:shadow-lg hover:scale-[1.01] hover:transition-all duration-300 ease-in-out text-gray-800 dark:text-gray-200 bg-white dark:bg-slate-800 transition-colors duration-300"
+          className="rounded-md appearance-none cursor-pointer focus:outline-zinc-500 hover:bg-zinc-300 focus:bg-zinc-300 dark:focus:outline-zinc-400 dark:hover:bg-zinc-700 dark:focus:bg-zinc-700 py-1.5 px-4 w-full text-center hover:shadow-lg hover:scale-[1.01] hover:transition-all ease-in-out text-gray-800 dark:text-gray-200 bg-white dark:bg-slate-800 transition-colors duration-300"
           value={selectedYear}
           onChange={handleYearChange}
         >
@@ -254,7 +255,7 @@ function YearSem({ onYearChange, onSemesterChange, reset }) {
       </div>
       <div className="w-1/2">
         <select
-          className="rounded-md appearance-none cursor-pointer focus:outline-zinc-500 hover:bg-zinc-300 focus:bg-zinc-300 dark:focus:outline-zinc-400 dark:hover:bg-zinc-700 dark:focus:bg-zinc-700 py-1.5 px-4 w-full text-center hover:shadow-lg hover:scale-[1.01] hover:transition-all duration-300 ease-in-out text-gray-800 dark:text-gray-200 bg-white dark:bg-slate-800 transition-colors duration-300"
+          className="rounded-md appearance-none cursor-pointer focus:outline-zinc-500 hover:bg-zinc-300 focus:bg-zinc-300 dark:focus:outline-zinc-400 dark:hover:bg-zinc-700 dark:focus:bg-zinc-700 py-1.5 px-4 w-full text-center hover:shadow-lg hover:scale-[1.01] hover:transition-all ease-in-out text-gray-800 dark:text-gray-200 bg-white dark:bg-slate-800 transition-colors duration-300"
           value={selectedSemester}
           onChange={handleSemesterChange}
           disabled={!selectedYear}
