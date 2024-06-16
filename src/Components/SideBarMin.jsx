@@ -22,18 +22,18 @@ export default function SideBarMin({ setActivePage, isVisible }) {
       <div className="p-2">
         {isOpen ? (
           <AiOutlineClose
-            className="text-2xl text-gray-800 cursor-pointer transition-transform duration-300 ease-in-out transform hover:rotate-90"
+            className="text-2xl text-gray-800 dark:text-gray-200 cursor-pointer transition-all duration-300 ease-in-out transform hover:rotate-90"
             onClick={toggleMenu}
           />
         ) : (
           <AiOutlineMenu
-            className="text-2xl text-gray-800 cursor-pointer transition-transform duration-300 ease-in-out transform hover:scale-110"
+            className="text-2xl text-gray-800 dark:text-gray-200 cursor-pointer transition-all duration-300 ease-in-out transform hover:scale-110"
             onClick={toggleMenu}
           />
         )}
       </div>
       <div 
-        className={`fixed inset-0 bg-slate-300 transform transition-transform duration-300 ease-in-out ${
+        className={`fixed inset-0 bg-white dark:bg-slate-700 transform transition-all duration-300 ease-in-out ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
@@ -41,7 +41,7 @@ export default function SideBarMin({ setActivePage, isVisible }) {
           <div>
             <div className="flex justify-start mb-5">
               <AiOutlineClose
-                className="text-2xl text-gray-800 cursor-pointer transition-transform duration-300 ease-in-out transform hover:rotate-90"
+                className="text-2xl text-gray-800 dark:text-gray-200 cursor-pointer transition-all duration-300 ease-in-out transform hover:rotate-90"
                 onClick={toggleMenu}
               />
             </div>
@@ -58,7 +58,7 @@ export default function SideBarMin({ setActivePage, isVisible }) {
             </div>
           </div>
           <div>
-            <hr className="h-px border-0 bg-black mx-12 mb-2.5 opacity-30" />
+            <hr className="h-px border-0 bg-black dark:bg-gray-200 mx-12 mb-2.5 opacity-30 transition-all duration-300" />
             <Login />
           </div>
         </div>

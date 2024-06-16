@@ -37,7 +37,7 @@ export default function Login() {
                 </div>
             ) : (
                 <div className="relative mx-3 max-md:mx-12">
-                    <div className="rounded-md hover:bg-slate-500 hover:dark:bg-slate-700 dark:text-white hover:dark:text-gray-200 hover:text-white hover:shadow-lg hover:scale-105 transition-all duration-300 ease-in-out">
+                    <div className="rounded-md hover:bg-slate-500 hover:dark:bg-slate-800 dark:text-gray-200 hover:dark:text-gray-200 hover:text-white hover:shadow-lg hover:scale-105 transition-all duration-300 ease-in-out">
                         <button
                             onClick={() => setDropdownOpen(!dropdownOpen)}
                             className="w-full flex items-center h-12"
@@ -57,11 +57,11 @@ export default function Login() {
                     </div>
                     {dropdownOpen && (
                         <div
-                            className={`absolute bottom-full mb-2 w-full rounded-md shadow-lg dark:text-white bg-slate-100 text-black animate-fadeIn`}
+                            className={`absolute bottom-full mb-2 w-full rounded-md shadow-lg bg-slate-300 dark:bg-slate-900 hover:dark:bg-slate-800 text-black dark:text-gray-200 animate-fadeIn hover:scale-105 transition-all duration-300 ease-in-out`}
                         >
                             <button
                                 onClick={handleLogOut}
-                                className="w-full rounded-md hover:bg-slate-500 hover:text-white hover:dark:bg-slate-700 hover:dark:text-gray-200 transition-colors duration-300 ease-in-out flex items-center h-10 justify-center"
+                                className="w-full rounded-md hover:bg-slate-500 hover:text-white hover:dark:bg-slate-800 dark:bg-slate-700 dark:text-gray-200 transition-colors duration-300 ease-in-out flex items-center h-10 justify-center"
                             >
                                 Logout
                             </button>

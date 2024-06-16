@@ -1,0 +1,20 @@
+.animated-border:hover {
+    --border-angle: 0turn;
+    border: solid 5px transparent;
+    border-radius: 2em;
+    --gradient-border: conic-gradient(from var(--border-angle), transparent 25%, #08f, #f03 99%, transparent);
+    border-image: var(--gradient-border) 1;
+    animation: bg-spin 3s linear infinite;
+  }
+  
+  @keyframes bg-spin {
+    to {
+      --border-angle: 3turn;
+    }
+  }
+  
+  @property --border-angle {
+    syntax: "";
+    inherits: true;
+    initial-value: 0turn;
+  }

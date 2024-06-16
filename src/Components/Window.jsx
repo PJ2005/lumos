@@ -11,7 +11,7 @@ export default function Window() {
 
     return (
         <>
-            <div className=' grid md:grid-cols-[20%_80%] max-md:grid-cols-[5%_95%] h-lvh font-mono'>
+            <div className=' grid md:grid-cols-[20%_80%] max-md:grid-cols-[5%_95%] h-lvh font-mono dark:bg-slate-800 dark:text-gray-200 transition-colors duration-300 select-none'>
                 <div className=' max-md:hidden md:block'>
                     <SideBar setActivePage={ setActivePage } /> {/* Pass the setActivePage function */}
                 </div>
