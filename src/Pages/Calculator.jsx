@@ -437,7 +437,7 @@ export default function Calculator() {
   rows.pop();
 
   return (
-    <div className="grid grid-rows-[10%_8%_71%_11%] max-md:grid-rows-[12.5%_12.5%_65%_10%] max-md:text-sm w-11/12 h-[90%] rounded-lg bg-white dark:bg-slate-800 text-gray-800 dark:text-gray-200 transition-colors duration-300">
+    <div className="grid grid-rows-[10%_8%_71%_11%] max-md:grid-rows-[10%_12.5%_59%_10%] max-md:text-sm w-11/12 h-[90%] rounded-lg bg-white dark:bg-slate-800 text-gray-800 dark:text-gray-200 transition-colors duration-300">
       <YearSem onYearChange={setYear} onSemesterChange={setSemester} reset={resetSelect} />
       <Header />
       <div id="render" className="space-y-1 mt-2 mb-12 row-span-1 overflow-auto scroll-smooth">
