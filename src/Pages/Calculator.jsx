@@ -8,7 +8,7 @@ import { auth } from '../firebaseConfig';
 
 function Header() {
     return (
-        <div className="grid grid-cols-7 text-center items-center bg-neutral-300 dark:bg-neutral-700 py-2 mb-2 rounded-lg transition-colors duration-300">
+        <div className="grid grid-cols-7 text-center items-center bg-neutral-300 dark:bg-neutral-700 py-2 max-md:mb-8 rounded-lg transition-colors duration-300">
             <h1 className="col-span-1 text-gray-800 dark:text-gray-200 transition-colors duration-300">S.No</h1>
             <h1 className="col-span-2 text-gray-800 dark:text-gray-200 transition-colors duration-300">Subject</h1>
             <h1 className="col-span-2 text-gray-800 dark:text-gray-200 transition-colors duration-300">Credits</h1>
@@ -92,7 +92,7 @@ function CreditDrop({ onCreditChange, reset, resetCredit }) {
       <select
         onChange={handleCreditChange}
         value={credit}
-        className="rounded-md focus:outline-neutral-500 appearance-none cursor-pointer hover:bg-neutral-300 focus:bg-neutral-300 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:focus:outline-neutral-600 py-1.5 px-4 w-11/12 md:w-auto min-w-[95px] text-center hover:shadow-lg hover:scale-[1.01] hover:transition-all ease-in-out text-gray-800 dark:text-gray-200 bg-white dark:bg-slate-800 transition-colors duration-300"
+        className="rounded-md focus:outline-neutral-500 appearance-none cursor-pointer hover:bg-neutral-300 focus:bg-neutral-300 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:focus:outline-neutral-600 py-1.5 px-4 w-11/12 md:w-auto min-w-[100px] text-center hover:shadow-lg hover:scale-[1.01] hover:transition-all ease-in-out text-gray-800 dark:text-gray-200 bg-white dark:bg-slate-800 transition-colors duration-300"
       >
         <option value="" disabled hidden>Credits</option>
         <option value="1">1</option>
@@ -419,6 +419,7 @@ export default function Calculator() {
   }, [rowCount]);
 
   let rows = [];
+  rows.push(<Header key={0} />);
   for (let i = 0; i < rowCount; i++) {
       const rowIndex = i + 1;
       rows.push(
@@ -437,13 +438,12 @@ export default function Calculator() {
   rows.pop();
 
   return (
-    <div className="grid grid-rows-[10%_8%_71%_11%] max-md:grid-rows-[10%_8%_65%_auto] w-11/12 h-[90%] py-2 rounded-lg bg-white dark:bg-slate-800 text-gray-800 dark:text-gray-200 transition-colors duration-300">
+    <div className="grid grid-rows-[10%_79%_11%] max-md:grid-rows-[10%_73%_10%] w-11/12 h-[90%] rounded-lg bg-white dark:bg-slate-800 text-gray-800 dark:text-gray-200 transition-colors duration-300">
       <YearSem onYearChange={setYear} onSemesterChange={setSemester} reset={resetSelect} />
-      <Header />
-      <div id="render" className="space-y-1 my-10 row-span-1 overflow-auto scroll-smooth">
+      <div id="render" className="space-y-1 mt-6 mb-12 row-span-1 overflow-auto scroll-smooth">
         {rows}
       </div>
-      <div className=" flex space-x-20 max-md:space-x-6">
+      <div className=" flex space-x-20 max-md:space-x-3">
         <CalculateBtn onReset={resetRows} />
         <AddRowBtn onClick={handleAddRow(setCount)} />
       </div>
