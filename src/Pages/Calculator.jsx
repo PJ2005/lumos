@@ -92,7 +92,7 @@ function CreditDrop({ onCreditChange, reset, resetCredit }) {
       <select
         onChange={handleCreditChange}
         value={credit}
-        className="rounded-md focus:outline-neutral-500 appearance-none cursor-pointer hover:bg-neutral-300 focus:bg-neutral-300 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:focus:outline-neutral-600 py-1.5 px-4 md:w-auto max-md:w-11/12 text-center hover:shadow-lg hover:scale-[1.01] hover:transition-all ease-in-out text-gray-800 dark:text-gray-200 bg-white dark:bg-slate-800 transition-colors duration-300"
+        className="rounded-md focus:outline-neutral-500 appearance-none cursor-pointer hover:bg-neutral-300 focus:bg-neutral-300 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:focus:outline-neutral-600 py-1.5 px-4 md:w-auto max-md:w-[94%] text-center hover:shadow-lg hover:scale-[1.01] hover:transition-all ease-in-out text-gray-800 dark:text-gray-200 bg-white dark:bg-slate-800 transition-colors duration-300"
       >
         <option value="" disabled hidden>Credits</option>
         <option value="1">1</option>
@@ -437,7 +437,7 @@ export default function Calculator() {
   rows.pop();
 
   return (
-    <div className="grid grid-rows-[10%_8%_71%_11%] max-md:grid-rows-[10%_10%_65%_10%] max-md:text-sm w-11/12 h-[90%] rounded-lg bg-white dark:bg-slate-800 text-gray-800 dark:text-gray-200 transition-colors duration-300">
+    <div className="grid grid-rows-[10%_8%_71%_11%] max-md:grid-rows-[10%_10%_64%_10%] max-md:text-sm w-11/12 h-[90%] rounded-lg bg-white dark:bg-slate-800 text-gray-800 dark:text-gray-200 transition-colors duration-300">
       <YearSem onYearChange={setYear} onSemesterChange={setSemester} reset={resetSelect} />
       <Header />
       <div id="render" className="space-y-1 mt-6 mb-12 row-span-1 overflow-auto scroll-smooth">
