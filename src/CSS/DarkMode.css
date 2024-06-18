@@ -1,0 +1,31 @@
+.theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    margin: 0;
+    width: 2rem;
+    height: 2rem;
+}
+
+.theme-toggle__classic {
+    transition: transform 0.3s ease;
+}
+
+.theme-toggle[aria-pressed="true"] .theme-toggle__classic {
+    transform: rotate(180deg);
+}
+
+.theme-toggle-sr {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
