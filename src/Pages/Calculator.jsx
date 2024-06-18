@@ -275,12 +275,12 @@ function showLoginOverlay() {
     const overlay = document.createElement('div');
     overlay.className = 'fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 backdrop-blur-sm';
     overlay.innerHTML = `
-      <div class="bg-white dark:bg-slate-800 p-6 rounded-lg shadow-lg text-center transition-colors duration-300 mx-10">
+      <div class="bg-white dark:bg-slate-800 p-6 rounded-lg shadow-lg text-center transition-colors duration-300 mx-10 max-md:flex max-md:flex-col">
         <p class="mb-4 text-lg text-gray-800 dark:text-gray-200">Would you like to log in and save your data?</p>
-        <button id="loginBtn" class="bg-zinc-300 dark:bg-zinc-700 text-gray-800 dark:text-gray-200 hover:bg-zinc-400 dark:hover:bg-zinc-600 font-bold py-2 px-4 rounded mr-2 transition-colors duration-300">
+        <button id="loginBtn" class="bg-zinc-300 dark:bg-zinc-700 text-gray-800 dark:text-gray-200 hover:bg-zinc-400 dark:hover:bg-zinc-600 font-bold py-2 px-4 mb-3 rounded mr-2 transition-colors duration-300">
           Log In
         </button>
-        <button id="continueBtn" class="bg-zinc-300 dark:bg-zinc-700 text-gray-800 dark:text-gray-200 hover:bg-zinc-400 dark:hover:bg-zinc-600 font-bold py-2 px-4 rounded transition-colors duration-300">
+        <button id="continueBtn" class="bg-gray-400 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-500 dark:hover:bg-gray-600 font-bold py-2 px-4 rounded transition-colors duration-300">
           Continue without logging in
         </button>
       </div>
