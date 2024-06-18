@@ -43,11 +43,11 @@ function GradeDrop({ onGradeChange, reset, resetGrade }) {
     }, [reset, resetGrade]);
   
     return (
-      <div className="dropdown-menu flex flex-col justify-center items-center md:flex-row w-full md:w-auto max-md:w-auto">
+      <div className="dropdown-menu flex flex-col justify-center items-center md:flex-row md:w-auto max-md:w-11/12">
         <select
           onChange={handleGradeChange}
           value={grade}
-          className="dropdown-toggle rounded-md focus:outline-neutral-500 appearance-none cursor-pointer hover:bg-neutral-300 focus:bg-neutral-300 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:focus:outline-neutral-600 py-1.5 px-4 w-11/12 md:w-auto text-center hover:shadow-lg hover:scale-[1.01] hover:transition-all ease-in-out text-gray-800 dark:text-gray-200 bg-white dark:bg-slate-800 transition-colors duration-300"
+          className="dropdown-toggle rounded-md focus:outline-neutral-500 appearance-none cursor-pointer hover:bg-neutral-300 focus:bg-neutral-300 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:focus:outline-neutral-600 py-1.5 px-4 max-md:w-11/12 md:w-auto text-center hover:shadow-lg hover:scale-[1.01] hover:transition-all ease-in-out text-gray-800 dark:text-gray-200 bg-white dark:bg-slate-800 transition-colors duration-300"
         >
           <option value="" disabled hidden>Grades</option>
           <option value="10">O</option>
@@ -92,7 +92,7 @@ function CreditDrop({ onCreditChange, reset, resetCredit }) {
       <select
         onChange={handleCreditChange}
         value={credit}
-        className="rounded-md focus:outline-neutral-500 appearance-none cursor-pointer hover:bg-neutral-300 focus:bg-neutral-300 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:focus:outline-neutral-600 py-1.5 px-4 w-11/12 md:w-auto min-w-[100px] text-center hover:shadow-lg hover:scale-[1.01] hover:transition-all ease-in-out text-gray-800 dark:text-gray-200 bg-white dark:bg-slate-800 transition-colors duration-300"
+        className="rounded-md focus:outline-neutral-500 appearance-none cursor-pointer hover:bg-neutral-300 focus:bg-neutral-300 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:focus:outline-neutral-600 py-1.5 px-4 md:w-auto max-md:w-11/12 text-center hover:shadow-lg hover:scale-[1.01] hover:transition-all ease-in-out text-gray-800 dark:text-gray-200 bg-white dark:bg-slate-800 transition-colors duration-300"
       >
         <option value="" disabled hidden>Credits</option>
         <option value="1">1</option>
@@ -419,7 +419,6 @@ export default function Calculator() {
   }, [rowCount]);
 
   let rows = [];
-  rows.push(<Header key={0} />);
   for (let i = 0; i < rowCount; i++) {
       const rowIndex = i + 1;
       rows.push(
@@ -438,8 +437,9 @@ export default function Calculator() {
   rows.pop();
 
   return (
-    <div className="grid grid-rows-[10%_79%_11%] max-md:grid-rows-[10%_73%_10%] w-11/12 h-[90%] rounded-lg bg-white dark:bg-slate-800 text-gray-800 dark:text-gray-200 transition-colors duration-300">
+    <div className="grid grid-rows-[10%_8%_71%_11%] max-md:grid-rows-[10%_10%_65%_10%] max-md:text-sm w-11/12 h-[90%] rounded-lg bg-white dark:bg-slate-800 text-gray-800 dark:text-gray-200 transition-colors duration-300">
       <YearSem onYearChange={setYear} onSemesterChange={setSemester} reset={resetSelect} />
+      <Header />
       <div id="render" className="space-y-1 mt-6 mb-12 row-span-1 overflow-auto scroll-smooth">
         {rows}
       </div>
