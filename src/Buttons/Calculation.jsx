@@ -7,6 +7,24 @@ import { doc, getDoc, setDoc } from 'firebase/firestore';
 
 export var GPA = 0;
 
+function showIncompleteEntryOverlay(rowNumber) {
+  const overlay = document.createElement('div');
+  overlay.className = 'fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 backdrop-blur-sm';
+  overlay.innerHTML = `
+    <div class="bg-white dark:bg-slate-800 p-6 rounded-lg shadow-lg text-center transition-colors duration-300 mx-10">
+      <p class="mb-4 text-xl font-bold text-red-500 dark:text-red-400">Row ${rowNumber} is incomplete. Please fill out both grade and credit.</p>
+      <button id="closeBtn" class="bg-zinc-300 dark:bg-zinc-700 text-gray-800 dark:text-gray-200 hover:bg-zinc-400 dark:hover:bg-zinc-600 font-bold py-2 px-4 rounded transition-colors duration-300">
+        Close
+      </button>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+
+  document.getElementById('closeBtn').addEventListener('click', () => {
+    document.body.removeChild(overlay);
+  });
+}
+
 function Calculate({ onReset, user }) {
   let credits = 0;
   let multiplication = 0;
@@ -14,7 +32,7 @@ function Calculate({ onReset, user }) {
   for (let i = 0; i < final.length; i++) {
     const entry = final[i];
     if (!entry.grade || !entry.credit) {
-      alert(`Row ${i + 1} is incomplete. Please fill out both grade and credit.`);
+      showIncompleteEntryOverlay(i + 1);
       return;
     } else {
       credits += parseFloat(entry.credit);

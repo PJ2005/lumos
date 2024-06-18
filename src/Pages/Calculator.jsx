@@ -273,14 +273,14 @@ function YearSem({ onYearChange, onSemesterChange, reset }) {
 function showLoginOverlay() {
   return new Promise((resolve) => {
     const overlay = document.createElement('div');
-    overlay.className = 'fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50';
+    overlay.className = 'fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 backdrop-blur-sm';
     overlay.innerHTML = `
-      <div class="bg-white dark:bg-slate-800 p-6 rounded-lg shadow-lg text-center transition-colors duration-300">
+      <div class="bg-white dark:bg-slate-800 p-6 rounded-lg shadow-lg text-center transition-colors duration-300 mx-10">
         <p class="mb-4 text-lg text-gray-800 dark:text-gray-200">Would you like to log in and save your data?</p>
-        <button id="loginBtn" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mr-2 transition-colors duration-300">
+        <button id="loginBtn" class="bg-zinc-300 dark:bg-zinc-700 text-gray-800 dark:text-gray-200 hover:bg-zinc-400 dark:hover:bg-zinc-600 font-bold py-2 px-4 rounded mr-2 transition-colors duration-300">
           Log In
         </button>
-        <button id="continueBtn" class="bg-gray-300 hover:bg-gray-400 text-gray-800 dark:text-gray-200 font-bold py-2 px-4 rounded transition-colors duration-300">
+        <button id="continueBtn" class="bg-zinc-300 dark:bg-zinc-700 text-gray-800 dark:text-gray-200 hover:bg-zinc-400 dark:hover:bg-zinc-600 font-bold py-2 px-4 rounded transition-colors duration-300">
           Continue without logging in
         </button>
       </div>
@@ -300,11 +300,11 @@ function showLoginOverlay() {
 
 function showGPAOverlay(gpa) {
   const overlay = document.createElement('div');
-  overlay.className = 'fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50';
+  overlay.className = 'fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 backdrop-blur-sm';
   overlay.innerHTML = `
-    <div class="bg-white dark:bg-slate-800 p-6 rounded-lg shadow-lg text-center transition-colors duration-300">
+    <div class="bg-white dark:bg-slate-800 p-6 rounded-lg shadow-lg text-center transition-colors duration-300 mx-10">
       <p class="mb-4 text-xl font-bold text-gray-800 dark:text-gray-200">Your GPA is: ${gpa}</p>
-      <button id="closeBtn" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition-colors duration-300">
+      <button id="closeBtn" class="bg-zinc-300 dark:bg-zinc-700 text-gray-800 dark:text-gray-200 hover:bg-zinc-400 dark:hover:bg-zinc-600 font-bold py-2 px-4 rounded transition-colors duration-300">
         Close
       </button>
     </div>
@@ -318,11 +318,11 @@ function showGPAOverlay(gpa) {
 
 function showErrorOverlay(message) {
   const overlay = document.createElement('div');
-  overlay.className = 'fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50';
+  overlay.className = 'fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 backdrop-blur-sm';
   overlay.innerHTML = `
-    <div class="bg-white dark:bg-slate-800 p-6 rounded-lg shadow-lg text-center transition-colors duration-300">
+    <div class="bg-white dark:bg-slate-800 p-6 rounded-lg shadow-lg text-center transition-colors duration-300 mx-10">
       <p class="mb-4 text-xl font-bold text-red-500 dark:text-red-400">${message}</p>
-      <button id="closeBtn" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded transition-colors duration-300">
+      <button id="closeBtn" class="bg-zinc-300 dark:bg-zinc-700 text-gray-800 dark:text-gray-200 hover:bg-zinc-400 dark:hover:bg-zinc-600 font-bold py-2 px-4 rounded transition-colors duration-300">
         Close
       </button>
     </div>
@@ -437,7 +437,7 @@ export default function Calculator() {
   rows.pop();
 
   return (
-    <div className="grid grid-rows-[10%_8%_71%_11%] max-md:grid-rows-[10%_12.5%_59%_10%] max-md:text-sm w-11/12 h-[90%] rounded-lg bg-white dark:bg-slate-800 text-gray-800 dark:text-gray-200 transition-colors duration-300">
+    <div className="grid grid-rows-[10%_8%_71%_11%] max-md:grid-rows-[12%_12.5%_57%_10%] max-md:text-sm w-11/12 h-[95%] rounded-lg bg-white dark:bg-slate-800 text-gray-800 dark:text-gray-200 transition-colors duration-300">
       <YearSem onYearChange={setYear} onSemesterChange={setSemester} reset={resetSelect} />
       <Header />
       <div id="render" className="space-y-1 mt-2 mb-12 row-span-1 overflow-auto scroll-smooth">
