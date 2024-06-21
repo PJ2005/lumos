@@ -30,7 +30,7 @@ function GradeDrop({ onGradeChange, reset, resetGrade }) {
     const resetGradeValue = () => {
         setTimeout(() => {
             setGrade('');
-        }, 5000);
+        }, 1000);
     };
   
     useEffect(() => {
@@ -75,7 +75,7 @@ function CreditDrop({ onCreditChange, reset, resetCredit }) {
   const resetCreditValue = () => {
       setTimeout(() => {
           setCredit('');
-      }, 5000);
+      }, 1000);
   };
 
   useEffect(() => {
@@ -118,7 +118,7 @@ function SubjectInput({ onSubjectChange, reset, resetSubject }) {
     const resetSubjectValue = () => {
         setTimeout(() => {
             setSubject('');
-        }, 5000);
+        }, 1000);
     };
 
     useEffect(() => {
@@ -175,35 +175,35 @@ function YearSem({ onYearChange, onSemesterChange, reset }) {
   };
 
   return (
-    <div className="flex justify-center items-center space-x-2">
-      <div className="w-1/2">
-        <select
-          className="rounded-md appearance-none cursor-pointer focus:outline-zinc-500 hover:bg-zinc-300 focus:bg-zinc-300 dark:focus:outline-zinc-400 dark:hover:bg-zinc-700 dark:focus:bg-zinc-700 py-1.5 px-4 w-full text-center hover:shadow-lg hover:scale-[1.01] hover:transition-all ease-in-out text-gray-800 dark:text-gray-200 bg-white dark:bg-slate-800 transition-colors duration-300"
-          value={selectedYear}
-          onChange={handleYearChange}
-        >
-          <option value="" disabled hidden>Year</option>
-          <option value="Y1">Year 1</option>
-          <option value="Y2">Year 2</option>
-          <option value="Y3">Year 3</option>
-          <option value="Y4">Year 4</option>
-        </select>
-      </div>
-      <div className="w-1/2">
-        <select
-          className="rounded-md appearance-none cursor-pointer focus:outline-zinc-500 hover:bg-zinc-300 focus:bg-zinc-300 dark:focus:outline-zinc-400 dark:hover:bg-zinc-700 dark:focus:bg-zinc-700 py-1.5 px-4 w-full text-center hover:shadow-lg hover:scale-[1.01] hover:transition-all ease-in-out text-gray-800 dark:text-gray-200 bg-white dark:bg-slate-800 transition-colors duration-300"
-          value={selectedSemester}
-          onChange={handleSemesterChange}
-          disabled={!selectedYear}
-        >
-          <option value="" disabled hidden>Semester</option>
-          {selectedYear && semesterOptions[selectedYear].map((sem, index) => (
-            <option key={index} value={sem}>{sem}</option>
-          ))}
-        </select>
-      </div>
+    <div className="flex justify-center items-center space-x-20">
+        <div className="w-1/2">
+            <select
+                className="rounded-md appearance-none cursor-pointer focus:outline-none hover:bg-zinc-300 focus:bg-zinc-300 dark:hover:bg-zinc-700 dark:focus:bg-zinc-700 py-1.5 px-4 w-full text-center hover:shadow-lg hover:scale-[1.01] hover:transition-all ease-in-out text-gray-800 dark:text-gray-200 bg-white dark:bg-slate-800 transition-colors duration-300 border border-gray-800 dark:border-gray-200"
+                value={selectedYear}
+                onChange={handleYearChange}
+            >
+                <option value="" disabled hidden>Year</option>
+                <option value="Y1">Year 1</option>
+                <option value="Y2">Year 2</option>
+                <option value="Y3">Year 3</option>
+                <option value="Y4">Year 4</option>
+            </select>
+        </div>
+        <div className="w-1/2">
+            <select
+                className="rounded-md appearance-none cursor-pointer focus:outline-none hover:bg-zinc-300 focus:bg-zinc-300 dark:hover:bg-zinc-700 dark:focus:bg-zinc-700 py-1.5 px-4 w-full text-center hover:shadow-lg hover:scale-[1.01] hover:transition-all ease-in-out text-gray-800 dark:text-gray-200 bg-white dark:bg-slate-800 transition-colors duration-300 border border-gray-800 dark:border-gray-200"
+                value={selectedSemester}
+                onChange={handleSemesterChange}
+                disabled={!selectedYear}
+            >
+                <option value="" disabled hidden>Semester</option>
+                {selectedYear && semesterOptions[selectedYear].map((sem, index) => (
+                    <option key={index} value={sem}>{sem}</option>
+                ))}
+            </select>
+        </div>
     </div>
-  );
+);
 }
 
 function CenteredHr() {
@@ -275,6 +275,35 @@ function showErrorOverlay(message) {
 
   document.getElementById('closeBtn').addEventListener('click', () => {
       document.body.removeChild(overlay);
+  });
+}
+
+
+function showLoggedInOverlay() {
+  return new Promise((resolve) => {
+    const overlay = document.createElement('div');
+    overlay.className = 'fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 backdrop-blur-sm';
+    overlay.innerHTML = `
+      <div class="bg-white dark:bg-slate-800 p-6 rounded-lg shadow-lg text-center transition-colors duration-300 mx-10 max-md:flex max-md:flex-col">
+        <p class="mb-4 text-lg text-gray-800 dark:text-gray-200">Would you like to store your GPA data?</p>
+        <button id="storeBtn" class="bg-zinc-300 dark:bg-zinc-700 text-gray-800 dark:text-gray-200 hover:bg-zinc-400 dark:hover:bg-zinc-600 font-bold py-2 px-4 mb-3 rounded mr-2 transition-colors duration-300">
+          Store Data
+        </button>
+        <button id="noStoreBtn" class="bg-gray-400 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-500 dark:hover:bg-gray-600 font-bold py-2 px-4 rounded transition-colors duration-300">
+          Don't Store Data
+        </button>
+      </div>
+    `;
+    document.body.appendChild(overlay);
+
+    document.getElementById('storeBtn').addEventListener('click', () => {
+      document.body.removeChild(overlay);
+      resolve('store');
+    });
+    document.getElementById('noStoreBtn').addEventListener('click', () => {
+      document.body.removeChild(overlay);
+      resolve('noStore');
+    });
   });
 }
 
@@ -350,61 +379,63 @@ export default function Calculator() {
 
   const resetRows = async () => {
     if (!user) {
-        const userChoice = await showLoginOverlay();
-        if (userChoice === 'login') {
-            try {
-                await googleSignIn();
-                // Wait for the auth state to update
-                await new Promise(resolve => setTimeout(resolve, 1000));
-                
-                // Get the current user
-                const currentUser = auth.currentUser;
-                if (currentUser) {
-                    if (!year || !semester) {
-                        showErrorOverlay("Please select both year and semester before calculating GPA.");
-                        return;
-                    }
-                    const email = currentUser.email;
-                    const data = { final, gpa: GPA, year, semester };
-                    await saveUserData(email, year, semester, data);
-                    showGPAOverlay(GPA);
-                } else {
-                    showErrorOverlay("Login successful, but user data not available. Please try again.");
-                }
-            } catch (error) {
-                console.log(error);
-                showErrorOverlay("Login failed. Please try again.");
+      const userChoice = await showLoginOverlay();
+      if (userChoice === 'login') {
+        try {
+          await googleSignIn();
+          await new Promise(resolve => setTimeout(resolve, 1000));
+          
+          const currentUser = auth.currentUser;
+          if (currentUser) {
+            if (!year || !semester) {
+              showErrorOverlay("Please select both year and semester before calculating GPA.");
+              return;
             }
-        } else if (userChoice === 'continue') {
-            // Show GPA without saving data, regardless of year and semester
+            const storeChoice = await showLoggedInOverlay();
+            if (storeChoice === 'store') {
+              const email = currentUser.email;
+              const data = { final, gpa: GPA, year, semester };
+              await saveUserData(email, year, semester, data);
+            }
             showGPAOverlay(GPA);
+          } else {
+            showErrorOverlay("Login successful, but user data not available. Please try again.");
+          }
+        } catch (error) {
+          console.log(error);
+          showErrorOverlay("Login failed. Please try again.");
         }
+      } else if (userChoice === 'continue') {
+        showGPAOverlay(GPA);
+      }
     } else {
-        // User is already logged in, check for year and semester
-        if (!year || !semester) {
-            showErrorOverlay("Please select both year and semester before calculating GPA.");
-            return;
-        }
+      if (!year || !semester) {
+        showErrorOverlay("Please select both year and semester before calculating GPA.");
+        return;
+      }
+      const storeChoice = await showLoggedInOverlay();
+      if (storeChoice === 'store') {
         const email = user.email;
         const data = { final, gpa: GPA, year, semester };
         await saveUserData(email, year, semester, data);
-        showGPAOverlay(GPA);
+      }
+      showGPAOverlay(GPA);
     }
-
+  
     // Reset the form
     setCount(6);
     final.length = 0;
     setRefresh(!refresh);
     setResetInputs(true);
-
+  
     setTimeout(() => {
-        setResetSelect(true);
-        setYear('');
-        setSemester('');
-        setTimeout(() => setResetSelect(false), 0);
-
-        setResetInputs(false);
-    }, 5000);
+      setResetSelect(true);
+      setYear('');
+      setSemester('');
+      setTimeout(() => setResetSelect(false), 0);
+  
+      setResetInputs(false);
+    }, 1000);
   };
 
   const handleReset = () => {
@@ -445,7 +476,7 @@ export default function Calculator() {
       </div>
       <div className="flex flex-col space-y-4">
         <div className="flex space-x-4 max-md:space-x-2">
-        <DeleteRowBtn onClick={handleDeleteRow(setCount, rowCount)} />
+          <DeleteRowBtn onClick={handleDeleteRow(setCount, rowCount)} />
           <AddRowBtn onClick={handleAddRow(setCount)} />
         </div>
         <CalculateBtn onReset={resetRows} />

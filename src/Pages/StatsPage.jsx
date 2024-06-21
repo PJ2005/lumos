@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { getDocs, collection } from 'firebase/firestore';
+import { getDocs, collection, deleteDoc } from 'firebase/firestore';
 import { UserAuth } from '../context/AuthContext';
 import { Bar, Line } from 'react-chartjs-2';
 import { 
@@ -16,6 +16,7 @@ import {
 import { db } from '../firebaseConfig';
 import { IoIosArrowDropdown } from "react-icons/io";
 import { useDarkMode } from '../context/DarkModeContext';
+import DeleteData from '../Components/DeleteData';
 
 import './../CSS/Calculator.css';
 
@@ -104,6 +105,10 @@ export default function StatsPage() {
     const toggleGpaDropdown = () => {
         setGpaExpanded(!gpaExpanded);
     };
+
+    const handleDelete = (deletedSemester) => {
+        setSemestersData(prevData => prevData.filter(data => data.id !== deletedSemester));
+      };
 
     const renderBarChart = (data, index) => {
         const { id, final } = data;
@@ -297,58 +302,29 @@ export default function StatsPage() {
     };
 
     return (
-        <div className="w-full h-full overflow-hidden p-4 transition-colors duration-300 dark:bg-slate-800 dark:text-white">
-            {!user ? (
-                <div className="flex justify-center items-center h-full">
-                    <h2 className="text-lg md:text-xl lg:text-2xl">Login to view graphs of the saved data</h2>
-                </div>
-            ) : semestersData.length === 0 ? (
-                <div className="flex justify-center items-center h-full">
-                    <h2 className="text-lg md:text-xl lg:text-2xl font-semibold">No data entered yet to show graphs. Enter data to view graphs.</h2>
-                </div>
-            ) : (
-                <div className="w-full h-full overflow-y-auto space-y-4">
-                    <div className="rounded-lg shadow-md transition-colors duration-300 dark:bg-slate-700">
-                        <button
-                            onClick={toggleGpaDropdown}
-                            className="w-full text-left p-4 transition-colors duration-300 dark:hover:bg-slate-600 bg-gray-100 dark:bg-slate-700 hover:bg-gray-200 focus:outline-none flex items-center rounded-t-lg dark:text-slate-300"
-                        >
-                            <div className="flex-grow flex justify-center">
-                                <h2 className="text-sm md:text-base lg:text-lg font-semibold truncate mr-2">GPA Over Semesters</h2>
-                            </div>
-                            <span 
-                                className="transition-transform duration-300 ease-in-out flex-shrink-0 dark:text-slate-400 text-gray-600"
-                                style={{ transform: gpaExpanded ? 'rotate(180deg)' : 'rotate(0deg)' }}
-                            >
-                                <IoIosArrowDropdown size={20} />
-                            </span>
-                        </button>
-                        <div 
-                            className="overflow-hidden transition-all duration-700 ease-in-out dark:bg-slate-800"
-                            style={{ 
-                                maxHeight: gpaExpanded ? '1000px' : '0',
-                                opacity: gpaExpanded ? 1 : 0,
-                            }}
-                        >
-                            <div className="p-4 flex justify-center">
-                                <div className="w-full max-w-3xl" style={{ height: '300px' }}>
-                                    {renderLineChart()}
-                                </div>
-                            </div>
-                        </div>
+        <>
+            <div className="w-full h-full flex flex-col p-4 transition-colors duration-300 dark:bg-slate-800 dark:text-white">
+                {!user ? (
+                    <div className="flex justify-center items-center h-full">
+                        <h2 className="text-lg md:text-xl lg:text-2xl">Login to view graphs of the saved data</h2>
                     </div>
-                    {semestersData.map((data, index) => (
-                        <div key={data.id} className="rounded-lg shadow-md transition-colors duration-300 dark:bg-slate-700">
+                ) : semestersData.length === 0 ? (
+                    <div className="flex justify-center items-center h-full">
+                        <h2 className="text-lg md:text-xl lg:text-2xl font-semibold">No data entered yet to show graphs. Enter data to view graphs.</h2>
+                    </div>
+                ) : (
+                    <div className="flex-grow overflow-y-auto space-y-4 pb-16">
+                        <div className="rounded-lg shadow-md transition-colors duration-300 dark:bg-slate-700">
                             <button
-                                onClick={() => toggleDropdown(data.id)}
+                                onClick={toggleGpaDropdown}
                                 className="w-full text-left p-4 transition-colors duration-300 dark:hover:bg-slate-600 bg-gray-100 dark:bg-slate-700 hover:bg-gray-200 focus:outline-none flex items-center rounded-t-lg dark:text-slate-300"
                             >
                                 <div className="flex-grow flex justify-center">
-                                    <h2 className="text-sm md:text-base lg:text-lg font-semibold truncate mr-2">{Year[data.id]}</h2>
+                                    <h2 className="text-sm md:text-base lg:text-lg font-semibold truncate mr-2">GPA Over Semesters</h2>
                                 </div>
                                 <span 
                                     className="transition-transform duration-300 ease-in-out flex-shrink-0 dark:text-slate-400 text-gray-600"
-                                    style={{ transform: expandedId === data.id ? 'rotate(180deg)' : 'rotate(0deg)' }}
+                                    style={{ transform: gpaExpanded ? 'rotate(180deg)' : 'rotate(0deg)' }}
                                 >
                                     <IoIosArrowDropdown size={20} />
                                 </span>
@@ -356,20 +332,61 @@ export default function StatsPage() {
                             <div 
                                 className="overflow-hidden transition-all duration-700 ease-in-out dark:bg-slate-800"
                                 style={{ 
-                                    maxHeight: expandedId === data.id ? '1000px' : '0',
-                                    opacity: expandedId === data.id ? 1 : 0,
+                                    maxHeight: gpaExpanded ? '1000px' : '0',
+                                    opacity: gpaExpanded ? 1 : 0,
                                 }}
                             >
                                 <div className="p-4 flex justify-center">
                                     <div className="w-full max-w-3xl" style={{ height: '300px' }}>
-                                        {renderBarChart(data, index)}
+                                        {renderLineChart()}
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    ))}
-                </div>
-            )}
-        </div>
-    );
+                        {semestersData.map((data, index) => (
+                            <div key={data.id} className="rounded-lg shadow-md transition-colors duration-300 dark:bg-slate-700">
+                                <button
+                                    onClick={() => toggleDropdown(data.id)}
+                                    className="w-full text-left p-4 transition-colors duration-300 dark:hover:bg-slate-600 bg-gray-100 dark:bg-slate-700 hover:bg-gray-200 focus:outline-none flex items-center rounded-t-lg dark:text-slate-300"
+                                >
+                                    <div className="flex-grow flex justify-center">
+                                        <h2 className="text-sm md:text-base lg:text-lg font-semibold truncate mr-2">{Year[data.id]}</h2>
+                                    </div>
+                                    <span 
+                                        className="transition-transform duration-300 ease-in-out flex-shrink-0 dark:text-slate-400 text-gray-600"
+                                        style={{ transform: expandedId === data.id ? 'rotate(180deg)' : 'rotate(0deg)' }}
+                                    >
+                                        <IoIosArrowDropdown size={20} />
+                                    </span>
+                                </button>
+                                <div 
+                                    className="overflow-hidden transition-all duration-700 ease-in-out dark:bg-slate-800"
+                                    style={{ 
+                                        maxHeight: expandedId === data.id ? '1000px' : '0',
+                                        opacity: expandedId === data.id ? 1 : 0,
+                                    }}
+                                >
+                                    <div className="p-4 flex justify-center">
+                                        <div className="w-full max-w-3xl" style={{ height: '300px' }}>
+                                            {renderBarChart(data, index)}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                )}
+                {user && semestersData.length > 0 && (
+                    <div className="w-full flex justify-end mt-auto p-4">
+                        <DeleteData 
+                            semestersData={semestersData} 
+                            user={user} 
+                            onDelete={handleDelete}
+                        />
+                    </div>
+                )}
+            </div>
+        </>
+    );    
+        
 }
