@@ -28,16 +28,20 @@ function showIncompleteEntryOverlay(rowNumber) {
 function Calculate({ onReset, user }) {
   let credits = 0;
   let multiplication = 0;
+  let validEntries = 0;
 
   for (let i = 0; i < final.length; i++) {
     const entry = final[i];
-    if (!entry.grade || !entry.credit) {
-      showIncompleteEntryOverlay(i + 1);
-      return;
-    } else {
+    if (entry && entry.grade && entry.credit) {
       credits += parseFloat(entry.credit);
       multiplication += parseFloat(entry.credit) * parseFloat(entry.grade);
+      validEntries++;
     }
+  }
+
+  if (validEntries === 0) {
+    showIncompleteEntryOverlay(1);
+    return;
   }
 
   GPA = (multiplication / credits).toFixed(2);

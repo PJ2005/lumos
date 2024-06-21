@@ -5,6 +5,7 @@ import { AddRowBtn, handleAddRow } from "../Buttons/AddRow";
 import CalculateBtn, { GPA, saveUserData } from "../Buttons/Calculation";
 import { UserAuth } from '../context/AuthContext';
 import { auth } from '../firebaseConfig';
+import { DeleteRowBtn, handleDeleteRow } from '../Buttons/DeleteRow';
 
 function Header() {
     return (
@@ -143,71 +144,6 @@ function SubjectInput({ onSubjectChange, reset, resetSubject }) {
     );
 }
 
-
-function CenteredHr() {
-    return (
-        <div className="flex justify-center">
-            <hr className="my-2 w-4/6 border-neutral-500 dark:border-gray-200 opacity-50" />
-        </div>
-    );
-}
-
-export const final = [];
-
-function Format({ count, rowIndex, resetGrade, resetCredit, resetSubject, resetInputs }) {
-    const [data, setData] = useState({ key: rowIndex });
-  
-    const handleGradeChange = (grade) => {
-      setData((prevData) => {
-        const newData = { ...prevData, grade };
-        updateFinalArray(rowIndex, newData);
-        return newData;
-      });
-    };
-  
-    const handleCreditChange = (credit) => {
-      setData((prevData) => {
-        const newData = { ...prevData, credit };
-        updateFinalArray(rowIndex, newData);
-        return newData;
-      });
-    };
-  
-    const handleSubjectChange = (subject) => {
-      setData((prevData) => {
-        const newData = { ...prevData, subject };
-        updateFinalArray(rowIndex, newData);
-        return newData;
-      });
-    };
-  
-    const updateFinalArray = (index, newData) => {
-      const finalIndex = index - 1;
-      final[finalIndex] = { ...final[finalIndex], ...newData };
-    };
-  
-    useEffect(() => {
-      const entry = final[rowIndex - 1];
-      if (entry && entry.credit && entry.grade && entry.subject) {
-        }
-    }, [data, rowIndex]);
-
-    return (
-        <div className="grid grid-cols-7 text-center mt-2">
-            <div className="col-span-1">{count}</div>
-            <div className="col-span-2">
-                <SubjectInput onSubjectChange={handleSubjectChange} reset={resetInputs} resetSubject={resetSubject} />
-            </div>
-            <div className="col-span-2">
-                <CreditDrop onCreditChange={handleCreditChange} reset={resetInputs} resetCredit={resetCredit} />
-            </div>
-            <div className="col-span-2">
-                <GradeDrop onGradeChange={handleGradeChange} reset={resetInputs} resetGrade={resetGrade} />
-            </div>
-        </div>
-    );
-}
-
 function YearSem({ onYearChange, onSemesterChange, reset }) {
   const [selectedYear, setSelectedYear] = useState('');
   const [selectedSemester, setSelectedSemester] = useState('');
@@ -268,6 +204,14 @@ function YearSem({ onYearChange, onSemesterChange, reset }) {
       </div>
     </div>
   );
+}
+
+function CenteredHr() {
+    return (
+        <div className="flex justify-center">
+            <hr className="my-2 w-4/6 border-neutral-500 dark:border-gray-200 opacity-50" />
+        </div>
+    );
 }
 
 function showLoginOverlay() {
@@ -332,6 +276,62 @@ function showErrorOverlay(message) {
   document.getElementById('closeBtn').addEventListener('click', () => {
       document.body.removeChild(overlay);
   });
+}
+
+export const final = [];
+
+function Format({ count, rowIndex, resetGrade, resetCredit, resetSubject, resetInputs }) {
+    const [data, setData] = useState({ key: rowIndex });
+  
+    const handleGradeChange = (grade) => {
+      setData((prevData) => {
+        const newData = { ...prevData, grade };
+        updateFinalArray(rowIndex, newData);
+        return newData;
+      });
+    };
+  
+    const handleCreditChange = (credit) => {
+      setData((prevData) => {
+        const newData = { ...prevData, credit };
+        updateFinalArray(rowIndex, newData);
+        return newData;
+      });
+    };
+  
+    const handleSubjectChange = (subject) => {
+      setData((prevData) => {
+        const newData = { ...prevData, subject };
+        updateFinalArray(rowIndex, newData);
+        return newData;
+      });
+    };
+  
+    const updateFinalArray = (index, newData) => {
+      const finalIndex = index - 1;
+      final[finalIndex] = { ...final[finalIndex], ...newData };
+    };
+  
+    useEffect(() => {
+      const entry = final[rowIndex - 1];
+      if (entry && entry.credit && entry.grade && entry.subject) {
+        }
+    }, [data, rowIndex]);
+
+    return (
+        <div className="grid grid-cols-7 text-center mt-2">
+            <div className="col-span-1">{count}</div>
+            <div className="col-span-2">
+                <SubjectInput onSubjectChange={handleSubjectChange} reset={resetInputs} resetSubject={resetSubject} />
+            </div>
+            <div className="col-span-2">
+                <CreditDrop onCreditChange={handleCreditChange} reset={resetInputs} resetCredit={resetCredit} />
+            </div>
+            <div className="col-span-2">
+                <GradeDrop onGradeChange={handleGradeChange} reset={resetInputs} resetGrade={resetGrade} />
+            </div>
+        </div>
+    );
 }
 
 export default function Calculator() {
@@ -437,15 +437,18 @@ export default function Calculator() {
   rows.pop();
 
   return (
-    <div className="grid grid-rows-[13%_8%_60%_11%] max-md:grid-rows-[12%_12.5%_57%_10%] max-md:text-sm w-11/12 h-[95%] rounded-lg bg-white dark:bg-slate-800 text-gray-800 dark:text-gray-200 transition-colors duration-300">
+    <div className="grid grid-rows-[13%_8%_60%_19%] max-md:grid-rows-[12%_12.5%_57%_18%] max-md:text-sm w-11/12 h-[95%] rounded-lg bg-white dark:bg-slate-800 text-gray-800 dark:text-gray-200 transition-colors duration-300">
       <YearSem onYearChange={setYear} onSemesterChange={setSemester} reset={resetSelect} />
       <Header />
       <div id="render" className="space-y-1 mt-7 mb-11 pb-2 row-span-1 overflow-auto scroll-smooth">
         {rows}
       </div>
-      <div className=" flex space-x-20 max-md:space-x-3">
+      <div className="flex flex-col space-y-4">
+        <div className="flex space-x-4 max-md:space-x-2">
+        <DeleteRowBtn onClick={handleDeleteRow(setCount, rowCount)} />
+          <AddRowBtn onClick={handleAddRow(setCount)} />
+        </div>
         <CalculateBtn onReset={resetRows} />
-        <AddRowBtn onClick={handleAddRow(setCount)} />
       </div>
     </div>
   );
